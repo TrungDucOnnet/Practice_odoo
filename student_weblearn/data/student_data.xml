@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="student_5" model="student.profile">
+        <field name="name">Student XML 5</field>
+        <field name="total_fees">5000</field>
+        <field name="school_id" ref="school_weblearn.school_3"/>
+        <field name="hobby_list" eval="[(6, 0, [ref('hobby_1'), ref('hobby_2'),])]"/>
+    </record>
+
+<!--     First way to create One2Many field -->
+    <record id="school_10" model="school.profile">
+        <field name="name">School XML 10</field>
+        <field name="school_rank">50</field>
+        <field name="email">school10@gmail.com</field>
+    </record>
+
+<!--     This is the main record as school profile -->
+    <record id="student_6" model="student.profile">
+        <field name="name">Student XML 6</field>
+        <field name="total_fees">5000</field>
+        <field name="school_id" ref="school_weblearn.school_3"/>
+    </record>
+
+<!--     Second way to create One2Many field -->
+<!--     <record id="school_11" model="school.profile"> -->
+<!--         <field name="name">School XML 11</field> -->
+<!--         <field name="school_rank">11</field> -->
+<!--         <field name="email">school10@gmail.com</field> -->
+<!--         <field name="school_list" eval="[(0, 0, {'name':'Student 1 of school 111', 'total_fees':4000}), -->
+<!--                                          (0, 0, {'name':'Student 2 of school 111', 'total_fees':4000}), -->
+<!--                                          (0, 0, {'name':'Student 3 of school 111', 'total_fees':4000}), -->
+<!--                                         ]"/> -->
+<!--     </record> -->
+    <function model="student.profile" name="_change_roll_number" eval="[('RL')]"/>
+</odoo>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="school_list_view" model="ir.ui.view">
+        <field name="name">school.list.view</field>
+        <field name="model">school.profile</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="id" groups="school_weblearn.access_school_mid_level_group"/>
+                <field name="school_seq_name"/>
+                <field name="name" widget="bold_red"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="school_type"/>
+                <field name="school_rank" string="School Rank"/>
+                <field name="address" string="School Address"/>
+                <field name="create_uid" string="Create User"/>
+                 <button name="custom_remove" type="object" string="Remove" class="oe_highlight"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="school_form_view" model="ir.ui.view">
+        <field name="name">school.form.view</field>
+        <field name="model">school.profile</field>
+        <field name="arch" type="xml">
+            <form>
+                <button name="specialCommand" type="object" string="Special Command 0 0 vals"/>
+                 <button name="specialCommand1" type="object" string="Special Command 1 id vals"/>
+                 <button name="specialCommand2" type="object" string="Special Command 2 id False"/>
+                 <button name="specialCommand3" type="object" string="Special Command 3 id False"/>
+                 <button name="specialCommand4" type="object" string="Special Command 4 id False"/>
+                 <button name="specialCommand5" type="object" string="Special Command 5 0 0"/>
+                  <h1><field name="school_seq_name" nolabel="1"/></h1>
+                <group>
+                    <group>
+                        <field name="name" />
+                        <field name="email"/>
+                        <field name="phone"/>
+                        <field name="is_vitural_class"/>
+                        <field name="school_rank"/>
+                        <field name="result"/>
+                        <field name="address" widget="html"/>
+                    </group>
+                    <group>
+                        <field name="establish_date" />
+                        <field name="open_date" />
+                        <field name="school_type" placeholder="Select Type"/>
+                         <field name="auto_rank"/>
+                    </group>
+                    <group>
+                        <field name="documents" filename="file_name"/>
+                        <field name="file_name"/>
+                        <field name="school_image" widget="image"/>
+                        <field name="school_description" options="{'collaborative': true, 'resizable': true}"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="school_search_view" model="ir.ui.view">
+        <field name="name">school_search_view</field>
+        <field name="model">school.profile</field>
+        <field eval="10" name="priority"/>
+        <field name="arch" type="xml">
+            <search string="School Search">
+                <field name="name" string="School Name"/>
+                <field name="email" string="School Enail"/>
+                <field name="phone" string="School Phone"/>
+
+                <group expand='0' string='Filters'>
+                    <filter name='school_rank' string="School Rank (&lt; 5)" domain="[('school_rank', '&lt;', 5)]"/>
+<!--                     <separator/> -->
+                    <filter name="address" string="Address in Hanoi" domain="[('address', '=',  'Hanoi')]"/>
+                </group>
+
+                <group expand='0' string='Group by...'>
+                    <filter string='School Type' name="school_type_group" context="{'group_by': 'school_type'}"/>
+                    <filter string='School Address' name="school_address_group" context="{'group_by': 'address'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_school_profile" model="ir.actions.act_window">
+        <field name="name">School Profile</field>
+        <field name="res_model">school.profile</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="school_root_menu" name="School1" web_icon="school_weblearn,static/description/icon.png" sequence="185"/>
+    <menuitem id="school_sub_menu" parent="school_root_menu" name="School Profile" sequence="0"/>
+    <menuitem id="school_create_student_menu" parent="school_root_menu" name="Create Student" action="action_create_student"/>
+    <menuitem id="school_profile_menu" name="School List" action="action_school_profile" parent="school_sub_menu"/>
+
+<!--     <menuitem id="school_root_menu2" name="School2" web_icon="school_weblearn,static/description/icon.png"/> -->
+<!--     <menuitem id="school_sub_menu2" parent="school_root_menu2" name="School Profile2"/> -->
+<!--     <menuitem id="school_profile_menu2" name="School List2" action="action_school_profile" parent="school_sub_menu2"/> -->
+</odoo>

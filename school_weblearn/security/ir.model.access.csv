@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+school_batch_update,School Batch Update,model_school_batch_update_wizard,,1,1,1,1
+create_student_wizard,Create Student Wizard,model_create_student_wizard,,1,1,1,1
+
+
+

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        //Views Form
+        <record id="subject_information_view_form" model="ir.ui.view">
+            <field name="name">Subject Information Form</field>
+            <field name="model">subject.information</field>
+            <field name="arch" type="xml">
+                <form string="Tags">
+                    <group>
+                        <field name="name"/>
+                        <field name="numberOfCer"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        //View List
+        <record id="subject_information_list_view" model="ir.ui.view">
+            <field name="name">Subject Information List</field>
+            <field name="model">subject.information</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="numberOfCer"/>
+                </tree>
+            </field>
+        </record>
+
+        //Action
+        <record id="action_subject_information" model="ir.actions.act_window">
+            <field name="name">Subject Information Action</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">subject.information</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new subject for more
+                </p>
+            </field>
+        </record>
+
+        //menu
+        <menuitem id="subject_information_menu"
+            name="Subject Information"
+            parent="student_information_menu"
+            action="action_subject_information"
+            sequence="2"/>
+    </data>
+</odoo>
+

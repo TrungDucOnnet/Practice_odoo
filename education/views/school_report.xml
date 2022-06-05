@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="education_school" model="ir.actions.report">
+            <field name="name">School</field>
+            <field name="model">school.information</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">education.school_report_template</field>
+            <field name="report_file">education.school_report_template</field>
+<!--            <field name="attachment_use" eval="True"/>-->
+<!--            <field name="attachment">(object.state in ('open','paid')) and-->
+<!--                ('INV'+(object.number or '').replace('/','')+'.pdf')</field>-->
+            <field name="binding_model_id" ref="model_school_information"/>
+            <field name="binding_type">report</field>
+        </record>ee
+    </data>
+</odoo>

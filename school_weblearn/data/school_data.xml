@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="school_3" model="school.profile">
+        <field name="name">School XML 3</field>
+        <field name="email">school_xml3@gmail.com</field>
+        <field name="phone">0985764267</field>
+        <field name="address">Ha Noi</field>
+        <field name="school_type">public</field>
+    </record>
+
+    <record id="school_4" model="school.profile">
+        <field name="name">School XML 4</field>
+        <field name="email">school_xml3@gmail.com</field>
+        <field name="phone">098574</field>
+        <field name="address">Ha Noi</field>
+        <field name="school_type">private</field>
+    </record>
+
+    <record id="school_code_sequence_name" model="ir.sequence">
+        <field name="name">School Code</field>
+        <field name="code">school.profile</field>
+        <field name="prefix">School</field>
+        <field name="number_increment" eval="1"/>
+    </record>
+</odoo>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="ListView.buttons" t-name="MutilUpdateListView.buttons">
+        <t t-jquery="button.o_list_button_add" t-operation="after">
+            <button type="button" class="btn btn-secondary o_button_upload_bill">
+                Upload
+            </button>
+        </t>
+    </t>
+</templates>

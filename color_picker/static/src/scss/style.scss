@@ -1,0 +1,25 @@
+.color-picker {
+  .color-pill {
+    width: 25px;
+    height: 25px;
+    border-radius: 25px;
+    display: inline-block;
+    position: relative;
+    margin: 4px;
+
+    @for $size from 1 through length($o-colors) {
+      &.color-pill-#{$size - 1} {
+        background-color: nth($o-colors, $size);
+
+        &.active::after {
+          content: '\f00c';
+          font: normal normal normal 14px/1 FontAwesome;
+          color: white;
+          padding: 4px;
+          position: absolute;
+          display: inline-block;
+        }
+      }
+    }
+  }
+}

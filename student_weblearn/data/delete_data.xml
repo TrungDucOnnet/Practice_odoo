@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--     Delete mutiple record base on Xml-id-->
+<!--     <delete id="student_5" model="student.profile"/> -->
+<!--     <delete id="school_weblearn.school_4" model="school.profile"/> -->
+
+<!--     Delete mutiple record by condition-->
+     <delete model="hobby" search="[('name', 'ilike', 'Hobby')]"/>
+</odoo>

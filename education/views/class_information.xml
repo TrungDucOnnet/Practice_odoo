@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        //Views Form
+        <record id="class_information_view_form" model="ir.ui.view">
+            <field name="name">Class Information Form</field>
+            <field name="model">class.information</field>
+            <field name="arch" type="xml">
+                <form string="Tags">
+                    <sheet>
+                        <group>
+                            <field name="school_id"/>
+                            <field name="name"/>
+                            <field name="grade"/>
+                            <field name="mainTeacher"/>
+                        </group>
+
+                        <group>
+                            <field name="studentList" optional="show">
+                                <tree>
+                                    <field name="name" optional="show"/>
+                                    <field name="birthday" optional="show"/>
+                                    <field name="class_id" optional="show"/>
+                                </tree>
+<!--                                 <form> -->
+<!--                                     <sheet> -->
+<!--                                         <group> -->
+<!--                                             <field name="name" optional="show"/> -->
+<!--                                             <field name="birthday" optional="show"/> -->
+<!--                                             <field name="class_id" optional="show"/> -->
+<!--                                         </group> -->
+<!--                                     </sheet> -->
+<!--                                 </form> -->
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        //View List
+        <record id="class_information_list_view" model="ir.ui.view">
+            <field name="name">Class Information List</field>
+            <field name="model">class.information</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="school_id"/>
+                    <field name="name" optional="show"/>
+                    <field name="grade" optional="show"/>
+                    <field name="mainTeacher" optional="show"/>
+                    <field name="address" optional="show"/>
+                </tree>
+            </field>
+        </record>
+
+        //Action
+        <record id="action_class_information" model="ir.actions.act_window">
+            <field name="name">Class Information Action</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">class.information</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new class for more
+                </p>
+            </field>
+        </record>
+
+        //menu
+        <menuitem id="class_information_menu"
+            name="ClassInformation"
+            parent="school_menu_root"
+            action="action_class_information"
+            sequence="2"/>
+    </data>
+</odoo>

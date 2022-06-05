@@ -1,0 +1,53 @@
+<odoo>
+
+<template id="index">
+    <t t-call="website.layout">
+        <t t-set="title">Academy</t>
+        <div class="oe_structure">
+            <div class="container">
+                    <t t-set="var" t-value="300"/>
+                    <t t-set="def" t-value="var"/>
+                    <div t-att-z="3"><p><t t-out= "def"/></p></div>
+
+                <t t-foreach="['', 2, 3]" t-as="item">
+                    <li t-att-class="item if item else 'b'">
+                        <t t-out="item"/>
+                    </li>
+                </t>
+<!--                 <t t-foreach="schools" t-as="school"> -->
+<!--                     <p> -->
+<!--                         <a t-attf-href="/academy/{{ slug(school) }}"> -->
+<!--                         <t t-esc="school.name"/></a> -->
+<!--                     </p> -->
+<!--                 </t> -->
+            </div>
+        </div>
+    </t>
+</template>
+
+<template id="test">
+    <div>Test</div>
+     <div>Test</div>
+      <div>Test</div>
+</template>
+
+
+<template id="biography">
+    <t t-call="website.layout">
+         <t t-call="education.test"></t>
+
+        <t t-set="title">Shool Infor Detail</t>
+<!--         <div class="oe_structure"/> -->
+        <div class="oe_structure">
+            <div class="container">
+                <h3><t t-esc="infor.name"/></h3>
+                <h3><t t-esc="infor.type"/></h3>
+                 <div t-field="infor.biography"/>
+                <p>Last modified: <i t-field="infor.write_date" t-options='{"widget": "relative"}'/></p>
+            </div>
+        </div>
+<!--         <div class="oe_structure"/> -->
+    </t>
+</template>
+
+</odoo>

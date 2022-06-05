@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="student_profile_report_template">
+        <t t-call = "web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+<!--                         <h1>How are you</h1> -->
+<!--                         <t t-set="a" t-value="123456789"/> -->
+<!--                         <h1 t-field="doc.name"/> -->
+<!--                         <h2 t-esc = "a"/> -->
+                        <t t-foreach="doc.school_id.school_list" t-as="rct">
+                            <h1 t-field="rct.name"></h1>
+                            <t t-set="total_fees" t-value="rct.total_fees"/>
+                            <h2 t-if="total_fees &gt; 10000">Hoc phi nhieu</h2>
+                            <h2 t-elif="total_fees &lt; 10000 and total_fees &gt; 4000 ">Hoc phi trung binh</h2>
+                            <h2 t-else="total_fees&lt;=4000">Hoc phi it</h2>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+    <record id="student_profile_report_temp" model="ir.actions.report">
+        <field name="name">Student Card</field>
+        <field name="model">student.profile</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">qweb_report_pdf_examble.student_profile_report_template</field>
+        <field name="report_file">qweb_report_pdf_examble.student_profile_report_template</field>
+        <field name="print_report_name">'Student-Card'</field>
+        <field name="binding_model_id" ref="student_weblearn.model_student_profile"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

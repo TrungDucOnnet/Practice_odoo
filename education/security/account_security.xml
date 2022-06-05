@@ -1,0 +1,9 @@
+<!-- <?xml version="1.0" encoding="utf-8"?> -->
+<!-- <odoo> -->
+<!-- <data noupdate="0"> -->
+<!--     <record model="res.groups" id="education.module_school"> -->
+<!--         <field name="description">This is test create group for Trung Duc</field> -->
+<!--         <field name="sequence">7</field> -->
+<!--     </record> -->
+<!-- </data> -->
+<!-- </odoo> -->

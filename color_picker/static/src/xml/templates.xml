@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="ColorPillDemo" owl="1">
+        <span t-attf-class="color-pill color-pill-{{ props.color_no }} {{ props.active and 'active' or '' }}"
+              t-on-click="color_selected"
+        />
+    </t>
+
+    <span t-name="ColorPickerDemo" owl="1" t-on-color-update="color_update" class="color-picker">
+        <t t-foreach="total_colors" t-as="color_no">
+            <ColorPillDemo t-if="color_no == value or mode == 'edit'" color_no="color_no" active="color_no == value"/>
+        </t>
+    </span>
+</templates>

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <record id="search_view_student_profile" model="ir.ui.view">
+        <field name="name">search.view.student.profile</field>
+        <field name="model">student.profile</field>
+        <field name="arch" type="xml">
+            <search>
+<!--                 our custom search we can define -->
+<!--                  I mean all three types of search filters -->
+                 <field name="name" string="Student Name" filter_domain="['|',('name', 'ilike', self), ('roll_number', 'ilike', self)]"/>
+                 <field name="school_id" string ="School Name" filter_domain="[('name', 'ilike', self)]"/>
+
+                 <filter name="create_date" string="Today Records" domain="[('create_date', '>=', context_today().strftime('%Y-%m-%d'))]" />
+                 <filter name="seven_day_filters" string="This week Records" domain="[('create_date', '>=', (context_today() + datetime.timedelta(-6)).strftime('%Y-%m-%d'))]" />
+
+                 <filter string="Roll Numbers" name="roll_number" domain="[('roll_number', '!=', False)]"/>
+                 <filter string="Student Of Fpt school" name="fpt_students" domain="[('roll_number', '!=', False)]"/>
+                 <filter string="Student has A character" name="a_students" domain="[('name', 'ilike', 'a')]"/>
+
+                 <group string="Group By">
+                    <filter name="school_id" string="School" context="{'group_by': 'school_id'}"/>
+                    <filter name="total_fees_custom_name" string="Total Fees" context="{'group_by': 'total_fees'}"/>
+                 </group>
+
+<!--                 <searchpanel>-->
+<!--             we need to define only selection or relation field only -->
+<!--                   <field string="School" name="school_id" icon="fa fa-filter" select="multi" enable_counters="1"/>-->
+                   <field name="gender" enable_counters="1"/>
+<!--                </searchpanel>-->
+            </search>
+
+
+
+        </field>
+    </record>
+
+    <record id="student_list_view" model="ir.ui.view">
+        <field name="name">student.list.view</field>
+        <field name="model">student.profile</field>
+        <field name="arch" type="xml">
+            <tree multi_edit="1">
+                <field name="student_seq" widget="handle"/>
+                <field name="id" sum="Total id of Student List"/>
+                <field name="name"/>
+                 <field name="roll_number" avg="Average rollnumber of Student List"/>
+                <field name="gender"/>
+                <field name="school_id" context = "{'school_id':1}"/>
+                <field name= "total_fees" widget="monetary"  avg="Trung binh Fees of Student List" />
+                <field name="is_vitural_school"/>
+                <field name="time_open_school"/>
+                 <field name="activity_ids" widget="list_activity"/>
+                <field name="state" widget="badge" decoration-success="state == 'done'" decoration-info="state not in ('done', 'paid')"/>
+                <field name="teacher_id" widget="many2one_avatar_user"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="student_form_view" model="ir.ui.view">
+        <field name="name">student.form.view</field>
+        <field name="model">student.profile</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button class="btn-primary" name="wiz_open" string="Wizard open using custom method" type="object"/>
+                    <button name="student_weblearn.student_fees_update_action" string="Wizard open using action" type="action"/>
+                    <button class="oe_highlight" name="specialCommand6" type="object" string="Special Command 6 0 ids"/>
+                    <button class="oe_highlight" name="redirect_url" type="object" string="Redirect to Google" confirm="Are you sure to redirect"/>
+                    <field name="state" widget="statusbar" options="{'clickable': 1}"/> <!-- statusbar_visible="draft,paid,done" -->
+                </header>
+                <sheet>
+                    <notebook>
+                        <page string="Student Profile 1">
+                            <group>
+                               <group>
+                                    <field name="student_img" class="oe_avatar" widget="image"/>
+                               </group>
+                            </group>
+                             <group>
+                                <field name="name" default_focus="1" />
+                                 <field name="hide_price_hobby" groups="base.group_no_one"/>
+                                 <field name="gender"/>
+                                <field name="student_seq"/>
+                                <field name="roll_number"/>
+                                <field name="school_id" context = "{'default_school_id':2}" domain="[('is_vitural_class', '=', True), ('school_type', '=', 'public')]"/>
+                                <field name="hobby_list">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="price" attrs="{'column_invisible': [('parent.hide_price_hobby', '=', True)]}"/>
+                                    </tree>
+                                    <form>
+                                        <field name="name"/>
+                                        <field name="price" attrs="{'column_invisible': [('parent.hide_price_hobby', '=', True)]}"/>
+                                    </form>
+                                </field>
+                                <field name= "currency_id"/>
+                                <field name= "student_fees"/>
+                                <field name= "total_fees" widget="monetary"/>
+                                 <field name= "total_fees_test"/>
+                                <field name= "bdate" attrs="{'invisible': [('total_fees','=',0)], 'required': [('total_fees','=',0)]}"/>
+                                 <field name="active" widget="boolean_toggle"/>
+                                 <field name="teacher_id" widget="many2one_avatar"/>
+                            </group>
+                        </page>
+                        <page string="Student Profile 2">
+                            <group>
+                                <field name="ref_id"/>
+                                <field name="street"/>
+                                <field name="street_one"/>
+                                <field name="city"/>
+                                <field name="country"/>
+                                <field name="zip_code"/>
+                                <field name="color" widget="color_picker"/>
+                                 <field name="color_2" widget="color"/>
+                                <div class="oe_title">
+                                    <h1><field name="priority" widget="priority"/></h1>
+                                </div>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+
+<!--                Chatter-->
+                <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="school_form_view_extend" model="ir.ui.view">
+        <field name="name">school_form_view_extend</field>
+        <field name="model">school.profile</field>
+        <field name="inherit_id" ref="school_weblearn.school_form_view"/>
+        <field name="arch" type="xml">
+            <field name="school_description" position="after">
+                <field name="school_list">
+                    <tree editable="top">
+                        <field name="id"/>
+                        <field name="name"/>
+                    </tree>
+                    <form>
+                        <field name="name"/>
+                    </form>
+                </field>
+            </field>
+        </field>
+    </record>
+
+   <record id="student_kanban_view" model="ir.ui.view">
+        <field name="name">student.kanban.view</field>
+        <field name="model">student.profile</field>
+        <field name="arch" type="xml">
+            <kanban> <!-- draggable="1" -->
+                <field name="name"/>
+                <field name="roll_number"/>
+                <field name="school_id"/>
+                <field name="id"/>
+                <field name="student_img"/>
+                <field name="state" readonly="1"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
+<!--                             <div class="oe_kanban_image d-none d-md-block" t-attf-style="background-image:url('#{kanban_image('student.profile', 'student_img', record.id.raw_value, placeholder)}')"> -->
+                                <img class="o_kanban_image_inner_pic" t-att-src="kanban_image('student.profile', 'student_img', record.id.raw_value)"/>
+<!--                             </div> -->
+                            <div class="oe_kanban_details d-flex flex-column">
+                                <strong>
+                                     Name: <field name="name"/>
+                                </strong>
+                                <ul>
+                                    <li>Roll Number:<field name="roll_number"/></li>
+                                    <li>School Name:<field name="school_id"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+   </record>
+
+   <record id="student_calendar_view" model="ir.ui.view">
+        <field name="name">student.calendar.view</field>
+        <field name="model">student.profile</field>
+        <field name="arch" type="xml">
+            <calendar date_start="create_date" mode="week">
+                <field name="name"/>
+            </calendar>
+        </field>
+   </record>
+
+   <record id="student_graph_view" model="ir.ui.view">
+        <field name="name">student.graph.view</field>
+        <field name="model">student.profile</field>
+        <field name="arch" type="xml">
+            <graph>
+<!--                 <field name="school_id"/> -->
+<!--                 <field name="bdate"/> -->
+            </graph>
+        </field>
+   </record>
+
+    <record id="action_student_profile" model="ir.actions.act_window">
+        <field name="name">Student Profile</field>
+        <field name="res_model">student.profile</field>
+        <field name="view_mode">calendar,kanban,graph,tree,form</field>
+        <field name="context">{'search_default_a_students':1, 'group_by':'school_id'}</field>
+    </record>
+
+    <menuitem id="student_root_menu" name="Student"/>
+    <menuitem id="student_sub_menu" parent="student_root_menu" name="Student Profile"/>
+    <menuitem id="student_profile_menu" name="Student Profile List" action="action_student_profile" parent="student_sub_menu"/>
+</data>
+</odoo>
